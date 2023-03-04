@@ -21,7 +21,7 @@ public class QRCodeButtonMapper : MonoBehaviour
     public GameObject MainMenu;
     public GameObject PlaceMenu;
 
-    private SortedDictionary<System.Guid, GameObject> qrCodesObjectsList;
+    private bool isTrackingEnabled = false;
     private bool clearExisting = false;
     private MenuState MenuState = MenuState.MainMenu;
 
@@ -49,7 +49,6 @@ public class QRCodeButtonMapper : MonoBehaviour
     void Start()
     {
         Debug.Log("QRCodesVisualizer start");
-        qrCodesObjectsList = new SortedDictionary<System.Guid, GameObject>();
 
         QRCodesManager.Instance.QRCodesTrackingStateChanged += Instance_QRCodesTrackingStateChanged;
         QRCodesManager.Instance.QRCodeAdded += Instance_QRCodeAdded;
@@ -107,90 +106,42 @@ public class QRCodeButtonMapper : MonoBehaviour
                 var action = pendingActions.Dequeue();
 
 
-                if (action.type == ActionData.Type.Added)
+                if (action.type == ActionData.Type.Added && action.qrCode.Data == "Button9")
                 {
-                    try
-                    {
-                        this.qrCodesObjectsList.Add(action.qrCode.Id, this.AddButtonTrackingToQrCode(action.qrCode));
-                        Debug.Log("Enabled tracking on " + action.qrCode.SpatialGraphNodeId);
-                    }
-                    catch (ArgumentOutOfRangeException e)
-                    {
-                        // Do nothing
-                        Debug.LogWarning("QR Button number out of range: " + action.qrCode.Data);
-                    }
-                    catch (FormatException e)
-                    {
-                        Debug.LogWarning("Found QR Code in wrong format" + action.qrCode.Data);
-                    }
+                    this.AddMenuTrackingToQrCode(action.qrCode);
+                    this.isTrackingEnabled = true;
+                    Debug.Log("Enabled tracking on " + action.qrCode.SpatialGraphNodeId);
 
                 }
-                else if (action.type == ActionData.Type.Updated && action.qrCode.Data == "Button1")
+                else if (action.type == ActionData.Type.Updated && action.qrCode.Data == "Button9")
                 {
-                    if (!qrCodesObjectsList.ContainsKey(action.qrCode.Id))
+                    if (!isTrackingEnabled)
                     {
-                        try
-                        {
-                            this.qrCodesObjectsList.Add(action.qrCode.Id, this.AddButtonTrackingToQrCode(action.qrCode));
-                            Debug.Log("Enabled tracking on " + action.qrCode.SpatialGraphNodeId);
-                        }
-                        catch (ArgumentOutOfRangeException e)
-                        {
-                            // Do nothing
-                            Debug.LogWarning("QR Button number out of range: " + action.qrCode.Data);
-                        }
-                        catch (FormatException e)
-                        {
-                            Debug.LogWarning("Found QR Code in wrong format" + action.qrCode.Data);
-                        }
+                        this.AddMenuTrackingToQrCode(action.qrCode);
+                        this.isTrackingEnabled = true;
+                        Debug.Log("Enabled tracking on " + action.qrCode.SpatialGraphNodeId);
+
                     }
                 }
                 else if (action.type == ActionData.Type.Removed)
                 {
-                    if (qrCodesObjectsList.ContainsKey(action.qrCode.Id))
-                    {
-                        Debug.Log("Removed");
-                    }
+                    //Nothing yet
                 }
             }
         }
-        if (clearExisting)
-        {
-            clearExisting = false;
-            foreach (var obj in qrCodesObjectsList)
-            {
-                Destroy(obj.Value);
-            }
-            qrCodesObjectsList.Clear();
-
-        }
     }
 
-    private GameObject AddButtonTrackingToQrCode(QRCode qrCode)
+    private void AddMenuTrackingToQrCode(QRCode qrCode)
     {
-        Match buttonStringRegexMatches = Regex.Match(qrCode.Data, "Button\\d$");
-        if (buttonStringRegexMatches.Success)
+        switch (this.MenuState)
         {
-            int buttonNumber = Int32.Parse(buttonStringRegexMatches.Value[6].ToString()) - 1;
-            switch (this.MenuState)
-            {
-                case MenuState.MainMenu:
-                    Debug.Log(buttonStringRegexMatches.Value[6]);
-                    Debug.Log(buttonNumber);
-                    if (buttonNumber >= 0 && buttonNumber < 3)
-                    {
-                        GameObject ButtonWrapper = this.MainMenu.transform.GetChild(buttonNumber).gameObject;
-                        ButtonWrapper.GetComponent<SpatialGraphNodeTracker>().Id = qrCode.SpatialGraphNodeId;
-                        ButtonWrapper.GetComponent<SpatialGraphNodeTracker>().enabled = true;
-                        GameObject Button = ButtonWrapper.transform.GetChild(0).gameObject;
-                        Button.GetComponent<QRSizeMapper>().qrCode = qrCode;
-                        Button.GetComponent<QRSizeMapper>().enabled = true;
-                        return ButtonWrapper;
-                    }
-                    throw new ArgumentOutOfRangeException("Button Data id is out of range for the current menu type.");
-            }
+            case MenuState.MainMenu:
+                this.MainMenu.GetComponent<SpatialGraphNodeTracker>().Id = qrCode.SpatialGraphNodeId;
+                this.MainMenu.GetComponent<SpatialGraphNodeTracker>().enabled = true;
+                this.MainMenu.GetComponent<QRSizeMapper>().qrCode = qrCode;
+                this.MainMenu.GetComponent<QRSizeMapper>().enabled = true;
+                break;
         }
-        throw new FormatException("Button Data does not match expected format");
     }
 
     // Update is called once per frame
@@ -198,4 +149,5 @@ public class QRCodeButtonMapper : MonoBehaviour
     {
         HandleEvents();
     }
+
 }
