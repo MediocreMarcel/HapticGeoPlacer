@@ -31,8 +31,14 @@ namespace Microsoft.MixedReality.SampleQRCodes
                     {
                         pose = pose.GetTransformedBy(CameraCache.Main.transform.parent);
                     }
-
-                    gameObject.transform.SetPositionAndRotation(pose.position, pose.rotation);
+                    //Adapt Rotation
+                    Quaternion rotation = pose.rotation;
+                    Vector3 rotationEulerAngles = rotation.eulerAngles;
+                    rotationEulerAngles.x = rotationEulerAngles.x + 180;
+                    rotationEulerAngles.z = -rotationEulerAngles.z;
+                    rotation.eulerAngles = rotationEulerAngles;
+                    
+                    gameObject.transform.SetPositionAndRotation(pose.position, rotation);
                     Debug.Log("Id= " + Id + " QRPose = " + pose.position.ToString("F7") + " QRRot = " + pose.rotation.ToString("F7"));
                 }
                 else
