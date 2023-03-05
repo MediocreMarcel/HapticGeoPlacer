@@ -55,7 +55,7 @@ public class HandMenuHandler : MonoBehaviour
             switch (figureType)
             {
                 case Placables.QUBOID:
-                    this.PlaceMenuHandler.SetCuboidToggle(false);
+                    //this.PlaceMenuHandler.SetCuboidToggle(false);
                     this.CuboidPlacer.enabled = false;
                     break;
                 case Placables.PYRAMID:

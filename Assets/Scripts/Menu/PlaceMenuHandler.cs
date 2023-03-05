@@ -1,6 +1,4 @@
 using Microsoft.MixedReality.Toolkit.UI;
-using Microsoft.MixedReality.Toolkit.Utilities;
-using Microsoft.MixedReality.Toolkit.Utilities.Solvers;
 using UnityEngine;
 
 public class PlaceMenuHandler : MonoBehaviour
@@ -11,23 +9,8 @@ public class PlaceMenuHandler : MonoBehaviour
     [SerializeField] private Interactable placePyramidToggleButtonInteractable;
     [SerializeField] private Interactable placeCylinderToggleButtonInteractable;
 
-    //HandMenuHandler
-    [SerializeField] private HandMenuHandler handMenuHandler;
-    //Solver for hand
-    [SerializeField] private HandConstraintPalmUp HandConstraintPalmUp;
-
-
-    public void OnEnable()
-    {
-        Debug.Log(HandConstraintPalmUp.Handedness);
-        if (HandConstraintPalmUp.Handedness == Handedness.Right && transform.localPosition.x > 0)
-        {
-            Vector3 rightHandedPosition = transform.localPosition;
-            rightHandedPosition.x = -rightHandedPosition.x;
-            Debug.Log(rightHandedPosition);
-            transform.localPosition = rightHandedPosition;
-        }
-    }
+    //Placer
+    [SerializeField] private GameObject Placer;
 
     public void OnQuboidToggle(bool toggle)
     {
@@ -37,7 +20,7 @@ public class PlaceMenuHandler : MonoBehaviour
         this.placePyramidToggleButtonInteractable.IsToggled = false;
         this.placeCylinderToggleButtonInteractable.IsToggled = false;
         }
-        this.handMenuHandler.SetCuboidPlacerEnabled(toggle);
+        this.Placer.GetComponent<QuboidPlacer>().enabled = toggle;
     }
 
     public void OnSphereToggle(bool toggle)
@@ -59,10 +42,5 @@ public class PlaceMenuHandler : MonoBehaviour
         this.placeSphereToggleButtonInteractable.IsToggled = false;
         this.placePyramidToggleButtonInteractable.IsToggled = false;
         this.placeQuboidToggleButtonInteractable.IsToggled = false;
-    }
-
-    public void SetCuboidToggle(bool isToggled)
-    {
-        this.placeQuboidToggleButtonInteractable.IsToggled = isToggled;
     }
 }
