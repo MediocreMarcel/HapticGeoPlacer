@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5196973197718481227, guid: 877e565a7d623fd43b22f46a9fa85ac1, type: 3}
+  - {fileID: 2100000, guid: 848f3dbdd227c0e44a8a6b292cb0e084, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -254,8 +254,8 @@ MonoBehaviour:
   debounceThreshold: 0.01
   localForward: {x: -0, y: -0, z: -1}
   localUp: {x: 0, y: 1, z: 0}
-  localCenter: {x: 0, y: 0, z: 0}
-  bounds: {x: 0, y: 0}
+  localCenter: {x: 0, y: 0, z: -0.5}
+  bounds: {x: 1, y: 1}
   touchableCollider: {fileID: 4813847361991871163}
 --- !u!114 &4559437037848249882
 MonoBehaviour:
