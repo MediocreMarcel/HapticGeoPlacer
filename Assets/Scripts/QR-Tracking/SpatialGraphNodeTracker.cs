@@ -39,11 +39,11 @@ namespace Microsoft.MixedReality.SampleQRCodes
                     rotation.eulerAngles = rotationEulerAngles;
                     
                     gameObject.transform.SetPositionAndRotation(pose.position, rotation);
-                   // Debug.Log("Id= " + Id + " QRPose = " + pose.position.ToString("F7") + " QRRot = " + pose.rotation.ToString("F7"));
+                    //Debug.Log("Id= " + Id + " QRPose = " + pose.position.ToString("F7") + " QRRot = " + pose.rotation.ToString("F7"));
                 }
                 else
                 {
-                    Debug.LogWarning("Cannot locate " + Id);
+                    //Debug.LogWarning("Cannot locate " + Id);
                 }
             } else
             {

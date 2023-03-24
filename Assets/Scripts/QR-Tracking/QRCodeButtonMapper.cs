@@ -132,8 +132,10 @@ public class QRCodeButtonMapper : MonoBehaviour
     {
         this.MenuWrapper.GetComponent<SpatialGraphNodeTracker>().Id = qrCode.SpatialGraphNodeId;
         this.MenuWrapper.GetComponent<SpatialGraphNodeTracker>().enabled = true;
-        this.MenuWrapper.GetComponent<QRSizeMapper>().qrCode = qrCode;
-
+        foreach(MenuQrCodePlacer MenuPlacer in this.MenuWrapper.GetComponentsInChildren<MenuQrCodePlacer>(true))
+        {
+            MenuPlacer.qrCode = qrCode;
+        }
     }
 
     // Update is called once per frame
