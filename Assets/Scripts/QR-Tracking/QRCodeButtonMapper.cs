@@ -3,9 +3,7 @@
 
 using Microsoft.MixedReality.QR;
 using Microsoft.MixedReality.SampleQRCodes;
-using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using UnityEngine;
 
 
@@ -18,8 +16,7 @@ enum MenuState
 
 public class QRCodeButtonMapper : MonoBehaviour
 {
-    public GameObject MainMenuWrapper;
-    public GameObject PlaceMenuWrapper;
+    public GameObject MenuWrapper;
 
     private bool isTrackingEnabled = false;
     private bool clearExisting = false;
@@ -54,9 +51,9 @@ public class QRCodeButtonMapper : MonoBehaviour
         QRCodesManager.Instance.QRCodeAdded += Instance_QRCodeAdded;
         QRCodesManager.Instance.QRCodeUpdated += Instance_QRCodeUpdated;
         QRCodesManager.Instance.QRCodeRemoved += Instance_QRCodeRemoved;
-        if (MainMenuWrapper == null)
+        if (MenuWrapper == null)
         {
-            throw new System.Exception("Main Menu not assigned");
+            throw new System.Exception("Menu wrapper not assigned");
         }
     }
     private void Instance_QRCodesTrackingStateChanged(object sender, bool status)
@@ -133,18 +130,10 @@ public class QRCodeButtonMapper : MonoBehaviour
 
     private void AddMenuTrackingToQrCode(QRCode qrCode)
     {
-        this.MainMenuWrapper.GetComponent<SpatialGraphNodeTracker>().Id = qrCode.SpatialGraphNodeId;
-        this.MainMenuWrapper.GetComponent<SpatialGraphNodeTracker>().enabled = true;
-        GameObject MainMenu = this.MainMenuWrapper.transform.GetChild(0).gameObject;
-        MainMenu.GetComponent<QRSizeMapper>().qrCode = qrCode;
-        MainMenu.GetComponent<QRSizeMapper>().enabled = true;
+        this.MenuWrapper.GetComponent<SpatialGraphNodeTracker>().Id = qrCode.SpatialGraphNodeId;
+        this.MenuWrapper.GetComponent<SpatialGraphNodeTracker>().enabled = true;
+        this.MenuWrapper.GetComponent<QRSizeMapper>().qrCode = qrCode;
 
-
-        this.PlaceMenuWrapper.GetComponent<SpatialGraphNodeTracker>().Id = qrCode.SpatialGraphNodeId;
-        this.PlaceMenuWrapper.GetComponent<SpatialGraphNodeTracker>().enabled = true;
-        GameObject PlaceMenu = this.PlaceMenuWrapper.transform.GetChild(0).gameObject;
-        PlaceMenu.GetComponent<QRSizeMapper>().qrCode = qrCode;
-        PlaceMenu.GetComponent<QRSizeMapper>().enabled = true;
     }
 
     // Update is called once per frame

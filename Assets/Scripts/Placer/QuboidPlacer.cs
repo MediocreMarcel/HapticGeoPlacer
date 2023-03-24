@@ -1,30 +1,19 @@
-using Microsoft.MixedReality.Toolkit.Utilities;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class QuboidPlacer : Placeable
 {
-    public override void GeneratePreview(MixedRealityPose pose)
+    public GameObject QuboidPrefab;
+    public override void GeneratePreview(Vector3 centerPosition, Vector3 scale)
     {
         if (this.previewObject == null)
         {
-            this.previewObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            this.previewObject = Instantiate(QuboidPrefab, centerPosition, Quaternion.identity).gameObject;
         }
 
-        Material material = this.previewObject.GetComponent<Renderer>().material;
+        this.SetPreviewMaterial(this.previewObject.GetComponent<Renderer>().material);
 
-        MaterialUtils.SetupBlendMode(material, MaterialUtils.BlendMode.Transparent);
-        material.color = new Color(0.52f, 0.52f, 0.52f, 0.7f);
-
-        Vector3 centerPos = (this.startPosition + pose.Position) / 2;
-
-        float scaleX = Mathf.Abs(this.startPosition.x - pose.Position.x);
-        float scaleY = Mathf.Abs(this.startPosition.y - pose.Position.y);
-        float scaleZ = Mathf.Abs(this.startPosition.z - pose.Position.z);
-
-        this.previewObject.transform.position = centerPos;
-        this.previewObject.transform.localScale = new Vector3(scaleX, scaleY, scaleZ);
+        this.previewObject.transform.position = centerPosition;
+        this.previewObject.transform.localScale = scale;
     }
 
 }

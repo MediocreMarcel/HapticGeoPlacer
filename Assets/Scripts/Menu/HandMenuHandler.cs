@@ -1,74 +1,114 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+public enum Menus
+{
+    Main = 0,
+    Place = 1,
+    Edit = 2,
+    Color = 3
+}
 
 public class HandMenuHandler : MonoBehaviour
 {
 
-    [SerializeField] private GameObject Placer;
-    [SerializeField] private PlaceMenuHandler PlaceMenuHandler;
-    private QuboidPlacer CuboidPlacer;
-    private Placables? ActivePlacer;
+    [SerializeField] private GameObject MainMenu;
+    private MainMenuHandler MainMenuHandler;
+    [SerializeField] private GameObject PlaceMenu;
+    private PlaceMenuHandler PlaceMenuHandler;
+    [SerializeField] private GameObject EditMenu;
+    private EditMenuHandler EditMenuHandler;
+    [SerializeField] private GameObject ColorMenu;
+    private ColorMenuHandler ColorMenuHandler;
 
-    void OnEnable()
+    private Menus CurrentMenu = Menus.Main;
+
+    private void Start()
     {
-        this.CuboidPlacer = Placer.GetComponent<QuboidPlacer>();
-
+        //Get All Menu Handlers
+        this.MainMenuHandler = MainMenu.GetComponent<MainMenuHandler>();
+        this.PlaceMenuHandler = PlaceMenu.GetComponent<PlaceMenuHandler>();
+        this.EditMenuHandler = EditMenu.GetComponent<EditMenuHandler>();
+        this.ColorMenuHandler = ColorMenu.GetComponent<ColorMenuHandler>();
     }
 
-    public void SetCuboidPlacerEnabled(bool enabled)
+    /// <summary>
+    /// Opens a specific Menu and closes other menus
+    /// </summary>
+    /// <param name="MenuIntRepresented">Int representation of the Menus Enum</param>
+    public void OpenMenu(int MenuIntRepresented)
     {
-        this.CuboidPlacer.enabled = enabled;
-        if (enabled)
+        Menus Menu = (Menus)MenuIntRepresented;
+        this.CurrentMenu = Menu;
+        switch (Menu)
         {
-            this.ActivePlacer = Placables.QUBOID;
+            case Menus.Main:
+                this.MainMenu.SetActive(true);
+                this.PlaceMenuHandler.CloseMenu();
+                this.EditMenuHandler.CloseMenu();
+                this.ColorMenuHandler.CloseMenu();
+                break;
+            case Menus.Place:
+                this.PlaceMenu.SetActive(true);
+                this.MainMenuHandler.CloseMenu();
+                this.EditMenuHandler.CloseMenu();
+                this.ColorMenuHandler.CloseMenu();
+                break;
+            case Menus.Edit:
+                this.EditMenu.SetActive(true);
+                this.MainMenuHandler.CloseMenu();
+                this.PlaceMenuHandler.CloseMenu();
+                this.ColorMenuHandler.CloseMenu();
+                break;
+            case Menus.Color:
+                this.ColorMenu.SetActive(true);
+                this.MainMenuHandler.CloseMenu();
+                this.PlaceMenuHandler.CloseMenu();
+                this.EditMenuHandler.CloseMenu();
+                break;
         }
-        else
-        {
-            this.ActivePlacer = null;
-        }
-
     }
 
-    public void SetPausePlacers(bool paused)
+    /// <summary>
+    /// Closes all menus
+    /// </summary>
+    public void CloseAllMenus()
     {
-        switch (this.ActivePlacer)
-        {
-            case Placables.QUBOID:
-                this.CuboidPlacer.SetPausePlacer(paused);
-                break;
-            case Placables.PYRAMID:
-                break;
-            case Placables.SPHERE:
-                break;
-            case Placables.CYLINDER:
-                break;
-        }
+        this.MainMenuHandler.CloseMenu();
+        this.PlaceMenuHandler.CloseMenu();
+        this.EditMenuHandler.CloseMenu();
+        this.ColorMenuHandler.CloseMenu();
     }
 
-    public void TurnOffPlacer(int figureTypeIntRepresented)
+    /// <summary>
+    /// Hides all Menus, keeps all toggle selections
+    /// </summary>
+    public void HideAllMenus()
     {
-        Placables figureType = (Placables)figureTypeIntRepresented;
-        if (this.ActivePlacer == figureType)
-        {
-            this.ActivePlacer = null;
-            switch (figureType)
-            {
-                case Placables.QUBOID:
-                    //this.PlaceMenuHandler.SetCuboidToggle(false);
-                    this.CuboidPlacer.enabled = false;
-                    break;
-                case Placables.PYRAMID:
-                    break;
-                case Placables.SPHERE:
-                    break;
-                case Placables.CYLINDER:
-                    break;
-            }
-        } else
-        {
-            Debug.LogError("Illegal state. Tried to turn off placer that is currently not selected");
-        }
+        this.MainMenu.SetActive(false);
+        this.PlaceMenu.SetActive(false);
+        this.EditMenu.SetActive(false);
+        this.ColorMenu.SetActive(false);
+    }
 
+    /// <summary>
+    /// Opens a the last opened menu
+    /// </summary>
+    public void OpenCurrentMenu()
+    {
+        switch (this.CurrentMenu)
+        {
+            case Menus.Main:
+                this.MainMenu.SetActive(true);
+                break;
+            case Menus.Place:
+                this.PlaceMenu.SetActive(true);
+                break;
+            case Menus.Edit:
+                this.EditMenu.SetActive(true);
+                break;
+            case Menus.Color:
+                this.ColorMenu.SetActive(true);
+                break;
+        }
     }
 }

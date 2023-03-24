@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb41c8335e2ca96449f3991db5fa5702, type: 3}
+  m_Name: IconSet
+  m_EditorClassIdentifier: 
+  quadIcons:
+  - {fileID: 2800000, guid: b5c327e1f1e05b54a9c48c0ad9193fff, type: 3}
+  - {fileID: 2800000, guid: 4e99a248888df234a9bd9e33b69b5497, type: 3}
+  - {fileID: 2800000, guid: 9f60b9422a4e14843a85817c9f837496, type: 3}
+  - {fileID: 2800000, guid: 92849eead7cf58a4bac3d824208afc48, type: 3}
+  - {fileID: 2800000, guid: e5a50ee470877484084155824f0efb23, type: 3}
+  - {fileID: 2800000, guid: a86583d6010136b46a66b897316917bc, type: 3}
+  - {fileID: 2800000, guid: fc1e22b6486528d44a64c9630e2932bb, type: 3}
+  - {fileID: 2800000, guid: ad41a65ff34629f41977251ef70a2187, type: 3}
+  - {fileID: 2800000, guid: 81486a4ec4d22cb4e93f81994893700f, type: 3}
+  - {fileID: 2800000, guid: 49d6380b57258b447a2544b376bd2c12, type: 3}
+  - {fileID: 2800000, guid: 28e53d41299c9b747b14919f9f759d7e, type: 3}
+  - {fileID: 2800000, guid: e6252077a2efbad42ab16dc82c633f66, type: 3}
+  spriteIcons: []
+  charIconFont: {fileID: 0}
+  charIcons:
+  - Name: AppBarAdjust
+    Character: 60370
+  - Name: AppBarClose
+    Character: 59153
+  - Name: AppBarDone
+    Character: 59643
+  - Name: AppBarHide
+    Character: 59244
+  - Name: AppBarShow
+    Character: 59154
+  - Name: AppBarHome
+    Character: 60175
