@@ -5,7 +5,7 @@ using Microsoft.MixedReality.QR;
 using Microsoft.MixedReality.SampleQRCodes;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 
 enum MenuState
 {
@@ -119,10 +119,6 @@ public class QRCodeButtonMapper : MonoBehaviour
                         Debug.Log("Enabled tracking on " + action.qrCode.SpatialGraphNodeId);
 
                     }
-                }
-                else if (action.type == ActionData.Type.Removed)
-                {
-                    //Nothing yet
                 }
             }
         }

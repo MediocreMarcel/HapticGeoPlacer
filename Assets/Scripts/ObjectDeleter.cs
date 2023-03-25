@@ -6,7 +6,7 @@ public class ObjectDeleter : MonoBehaviour, IMixedRealityTouchHandler
     /// <summary>
     /// Defines how many frames the delete delay should be
     /// </summary>
-    private static int DeleteDelay = 150;
+    private static int DeleteDelay = 60;
     /// <summary>
     /// Counts the frames since object has been touched
     /// </summary>

@@ -135,7 +135,7 @@ public abstract class Placeable : MonoBehaviour, IMixedRealityPointerHandler
     void Update()
     {
         MixedRealityPose pose;
-        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.IndexTip, Handedness.Both, out pose) && !this.isPaused)
+        if (HandJointUtils.TryGetJointPose(TrackedHandJoint.IndexTip, Handedness.Right, out pose) && !this.isPaused)
         {
             if (state == State.Idle)
             {

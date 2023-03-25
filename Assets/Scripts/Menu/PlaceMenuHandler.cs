@@ -10,11 +10,6 @@ public class PlaceMenuHandler : MonoBehaviour
     [SerializeField] private Interactable placeSphereToggleButtonInteractable;
     [SerializeField] private Interactable placePyramidToggleButtonInteractable;
     [SerializeField] private Interactable placeCylinderToggleButtonInteractable;
-
-    //HandMenuHandler
-    [SerializeField] private HandMenuHandler handMenuHandler;
-    //Solver for hand
-    [SerializeField] private HandConstraintPalmUp HandConstraintPalmUp;
     //Placer
     [SerializeField] private GameObject Placer;
 
