@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
+// Modified by Marcel Heda, HTW Berlin
 
 using UnityEngine;
 using Microsoft.MixedReality.Toolkit.Utilities;
@@ -14,6 +15,7 @@ namespace Microsoft.MixedReality.SampleQRCodes
         private SpatialGraphNode node;
 
         public System.Guid Id { get; set; }
+        // ==== Beginn Eigenanteil ==== /
         public UnityEvent OnQRCodeNotVisible;
         public UnityEvent OnQRCodeVisible;
 
@@ -23,7 +25,7 @@ namespace Microsoft.MixedReality.SampleQRCodes
         private LerpUtil LerpUtil = new LerpUtil();
         private Vector3 PreviousFramePosition = new Vector3(0, 0, 0);
         private Quaternion PreviousFrameRotation = new Quaternion(0, 0, 0, 0);
-
+        // ==== Ende Eigenanteil ==== /
 
         void Update()
         {
@@ -37,11 +39,13 @@ namespace Microsoft.MixedReality.SampleQRCodes
             {
                 if (node.TryLocate(FrameTime.OnUpdate, out Pose pose))
                 {
+                    // ==== Beginn Eigenanteil ==== /
                     if (!this.NodeVisible)
                     {
                         this.NodeVisible = true;
                         this.OnQRCodeVisible.Invoke();
                     }
+                    // ==== Ende Eigenanteil ==== /
 
                     // If there is a parent to the camera that means we are using teleport and we should not apply the teleport
                     // to these objects so apply the inverse
@@ -50,6 +54,7 @@ namespace Microsoft.MixedReality.SampleQRCodes
                         pose = pose.GetTransformedBy(CameraCache.Main.transform.parent);
                     }
 
+                    // ==== Beginn Eigenanteil ==== /
                     //Adapt Rotation
                     Quaternion rotation = pose.rotation;
                     Vector3 rotationEulerAngles = rotation.eulerAngles;
@@ -89,6 +94,7 @@ namespace Microsoft.MixedReality.SampleQRCodes
                     }
                     PreviousFramePosition = new Vector3(0, 0, 0);
                     PreviousFrameRotation = new Quaternion(0, 0, 0, 0);
+                    // ==== Ende Eigenanteil ==== /
                 }
             }
         }

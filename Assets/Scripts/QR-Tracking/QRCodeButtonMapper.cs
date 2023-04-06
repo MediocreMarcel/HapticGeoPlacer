@@ -1,27 +1,30 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
+// Modified by Marcel Heda, HTW Berlin
 
 using Microsoft.MixedReality.QR;
 using Microsoft.MixedReality.SampleQRCodes;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
+// ==== Beginn Eigenanteil ==== /
 enum MenuState
 {
     MainMenu,
     PlaceMenu,
     EditMenu
 }
+// ==== Ende Eigenanteil ==== /
 
 public class QRCodeButtonMapper : MonoBehaviour
 {
+    // ==== Beginn Eigenanteil ==== /
     public GameObject MenuWrapper;
 
     private bool isTrackingEnabled = false;
-    private bool clearExisting = false;
     private MenuState MenuState = MenuState.MainMenu;
-
+    // ==== Ende Eigenanteil ==== /
+    private bool clearExisting = false;
     struct ActionData
     {
         public enum Type
@@ -102,7 +105,7 @@ public class QRCodeButtonMapper : MonoBehaviour
             {
                 var action = pendingActions.Dequeue();
 
-
+                // ==== Beginn Eigenanteil ==== /
                 if (action.type == ActionData.Type.Added && action.qrCode.Data == "Button9")
                 {
                     this.AddMenuTrackingToQrCode(action.qrCode);
@@ -133,6 +136,7 @@ public class QRCodeButtonMapper : MonoBehaviour
             MenuPlacer.qrCode = qrCode;
         }
     }
+    // ==== Ende Eigenanteil ==== /
 
     // Update is called once per frame
     void Update()

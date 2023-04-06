@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuQrCodePlacer : MonoBehaviour
-{
+{    
     public QRCode qrCode { get; set; }
+    // ==== Beginn Eigenanteil ==== /
     public float QRMargin = 0.012f;
 
     [SerializeField] private GameObject BackplateQuad;
@@ -22,8 +23,10 @@ public class MenuQrCodePlacer : MonoBehaviour
 
     void Update()
     {
+        // ==== Ende Eigenanteil ==== /
         if (qrCode != null && lastUpdate != qrCode.SystemRelativeLastDetectedTime.Ticks)
         {
+            // ==== Beginn Eigenanteil ==== /
             if (this.LerpCoroutine != null)
             {
                 StopCoroutine(this.LerpCoroutine);
@@ -37,6 +40,7 @@ public class MenuQrCodePlacer : MonoBehaviour
                 this.LerpCoroutine = StartCoroutine(this.LerpUtil.LerpLocalPosition(gameObject, desiredMenuPosition, 0.3f));
             }
             this.PreviousFrameMenuPosition = desiredMenuPosition;
+            // ==== Ende Eigenanteil ==== /
         }
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LerpUtil : MonoBehaviour
+public class LerpUtil
 {
     /// <summary>
     /// Creates a Lerp Effect on a the position of an game Object
