@@ -20,6 +20,15 @@ public class ColorMenuHandler : MonoBehaviour
         this.changeColorChangerStatus(true);
     }
 
+    /// <summary>
+    /// Gets the currently selected color as FigurColor Enum value. Can be null.
+    /// </summary>
+    /// <returns>Nullable of Selected Color</returns>
+    public FigurColors? GetSelectedColor()
+    {
+        return this.SelectedColor;
+    }
+
 
     /// <summary>
     /// Handels the events of the Yellow Toggle Button
@@ -85,7 +94,7 @@ public class ColorMenuHandler : MonoBehaviour
     /// Gets a Color object of the currently selected color
     /// </summary>
     /// <returns>Color object if anything is selected, null if nothing is selected</returns>
-    public Color? GetSelectedColor()
+    public Color? GetSelectedColorAsUnityColor()
     {
         switch (this.SelectedColor)
         {

@@ -1,9 +1,11 @@
 using Microsoft.MixedReality.Toolkit.Utilities;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpherePlacer : Placeable
 {
     public GameObject SpherePrefab;
+    public ButtonStudyHandler buttonStudyHandler;
     public override void GeneratePreview(Vector3 centerPosition, Vector3 scale)
     {
         if (this.previewObject == null)
@@ -15,6 +17,11 @@ public class SpherePlacer : Placeable
 
         this.previewObject.transform.position = centerPosition;
         this.previewObject.transform.localScale = scale;
+
+        if (SceneManager.GetActiveScene().name == "Study-HapticButtonSurvey")
+        {
+            previewObject.GetComponent<ColorChanger>().ButtonStudyHandler = buttonStudyHandler;
+        }
     }
 
 }

@@ -6,6 +6,7 @@ using Microsoft.MixedReality.QR;
 using Microsoft.MixedReality.SampleQRCodes;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // ==== Beginn Eigenanteil ==== /
 enum MenuState
@@ -20,6 +21,7 @@ public class QRCodeButtonMapper : MonoBehaviour
 {
     // ==== Beginn Eigenanteil ==== /
     public GameObject MenuWrapper;
+    public GameObject StartCube;
 
     private bool isTrackingEnabled = false;
     private MenuState MenuState = MenuState.MainMenu;
@@ -57,6 +59,10 @@ public class QRCodeButtonMapper : MonoBehaviour
         if (MenuWrapper == null)
         {
             throw new System.Exception("Menu wrapper not assigned");
+        }
+        if (SceneManager.GetActiveScene().name == "Study-HapticButtonSurvey" && StartCube == null)
+        {
+            throw new System.Exception("Start cube not assigned");
         }
     }
     private void Instance_QRCodesTrackingStateChanged(object sender, bool status)
@@ -106,18 +112,32 @@ public class QRCodeButtonMapper : MonoBehaviour
                 var action = pendingActions.Dequeue();
 
                 // ==== Beginn Eigenanteil ==== /
-                if (action.type == ActionData.Type.Added && action.qrCode.Data == "Button9")
+                if (action.type == ActionData.Type.Added)
                 {
-                    this.AddMenuTrackingToQrCode(action.qrCode);
+                    if(action.qrCode.Data == "Button9")
+                    {
+                        this.AddMenuTrackingToQrCode(action.qrCode);
+                        
+                    } else if (action.qrCode.Data == "Button6" && SceneManager.GetActiveScene().name=="Study-HapticButtonSurvey")
+                    {
+                        this.AddStartCubeTracking(action.qrCode);
+                    }
+
                     this.isTrackingEnabled = true;
                     Debug.Log("Enabled tracking on " + action.qrCode.SpatialGraphNodeId);
-
                 }
-                else if (action.type == ActionData.Type.Updated && action.qrCode.Data == "Button9")
+                else if (action.type == ActionData.Type.Updated)
                 {
                     if (!isTrackingEnabled)
                     {
-                        this.AddMenuTrackingToQrCode(action.qrCode);
+                        if(action.qrCode.Data == "Button9")
+                        {
+                            this.AddMenuTrackingToQrCode(action.qrCode);
+                        } else if (action.qrCode.Data == "Button6" && SceneManager.GetActiveScene().name == "Study-HapticButtonSurvey")
+                        {
+                            this.AddStartCubeTracking(action.qrCode);
+                        }
+                        
                         this.isTrackingEnabled = true;
                         Debug.Log("Enabled tracking on " + action.qrCode.SpatialGraphNodeId);
 
@@ -135,6 +155,12 @@ public class QRCodeButtonMapper : MonoBehaviour
         {
             MenuPlacer.qrCode = qrCode;
         }
+    }
+
+    private void AddStartCubeTracking(QRCode qrCode)
+    {
+        this.StartCube.GetComponent<SpatialGraphNodeTracker>().Id = qrCode.SpatialGraphNodeId;
+        this.StartCube.GetComponent<SpatialGraphNodeTracker>().enabled = true;
     }
     // ==== Ende Eigenanteil ==== /
 

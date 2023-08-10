@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QuboidPlacer : Placeable
 {
     public GameObject QuboidPrefab;
+    public ButtonStudyHandler buttonStudyHandler;
+
     public override void GeneratePreview(Vector3 centerPosition, Vector3 scale)
     {
         if (this.previewObject == null)
@@ -14,6 +17,11 @@ public class QuboidPlacer : Placeable
 
         this.previewObject.transform.position = centerPosition;
         this.previewObject.transform.localScale = scale;
+
+        if (SceneManager.GetActiveScene().name == "Study-HapticButtonSurvey")
+        {
+            previewObject.GetComponent<ColorChanger>().ButtonStudyHandler = buttonStudyHandler;
+        }
     }
 
 }

@@ -13,6 +13,7 @@ namespace Microsoft.MixedReality.SampleQRCodes
     internal class SpatialGraphNodeTracker : MonoBehaviour
     {
         private SpatialGraphNode node;
+        public bool is90DegreeTurned = false;
 
         public System.Guid Id { get; set; }
         // ==== Beginn Eigenanteil ==== /
@@ -59,6 +60,10 @@ namespace Microsoft.MixedReality.SampleQRCodes
                     Quaternion rotation = pose.rotation;
                     Vector3 rotationEulerAngles = rotation.eulerAngles;
                     rotationEulerAngles.x = rotationEulerAngles.x + 180;
+                    if (this.is90DegreeTurned)
+                    {
+                        rotationEulerAngles.x -= 90;
+                    }
                     rotationEulerAngles.z = -rotationEulerAngles.z;
                     rotation.eulerAngles = rotationEulerAngles;
 

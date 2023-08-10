@@ -4,7 +4,22 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: f2c97c8e1e15f3f4ca2626fbfe5e133d
+  - enabled: 1
+    path: Assets/Scenes/Study-HapticButtonSurvey.unity
+    guid: 0641321b55eb9254fbb74873f8bae57d
+  - enabled: 1
+    path: Assets/Scenes/BuildStudyPreview.unity
+    guid: f417241f37ace4742ba45441e453cfe3
+  - enabled: 1
+    path: Assets/Scenes/BuildStudy.unity
+    guid: d673406018f2e5748b153730f4c9da99
+  - enabled: 1
+    path: Assets/Scenes/GeoPlacer.unity
+    guid: ec55457531a063445b6cd67a6f2ad23d
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: ea9840485a3c99e45b901bb85d006d14, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: debc34b44e70e6f43acec15b6e6f5f5c, type: 2}
