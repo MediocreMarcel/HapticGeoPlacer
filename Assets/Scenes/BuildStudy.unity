@@ -14042,7 +14042,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 498695090}
   m_LocalRotation: {x: 0, y: 0.19936788, z: 0, w: 0.97992474}
-  m_LocalPosition: {x: 0.2, y: -0.05, z: 0}
+  m_LocalPosition: {x: 0.11, y: -0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -25566,9 +25566,9 @@ MonoBehaviour:
   faceUserDefinedTargetTransform: 0
   targetToFace: {fileID: 0}
   pivotAxis: 7
-  minDistance: 0.4
-  maxDistance: 0.6
-  defaultDistance: 0.4
+  minDistance: 0.5
+  maxDistance: 0.7
+  defaultDistance: 0.6
   maxViewHorizontalDegrees: 0
   maxViewVerticalDegrees: 0
   reorientWhenOutsideParameters: 1
@@ -33283,7 +33283,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299698695}
   m_LocalRotation: {x: 0, y: 0.19936788, z: 0, w: 0.97992474}
-  m_LocalPosition: {x: 0.2, y: -0.05, z: 0}
+  m_LocalPosition: {x: 0.11, y: -0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -45663,6 +45663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542cbccd6fa9ef74dbb043ea42adc4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  is90DegreeTurned: 0
   OnQRCodeNotVisible:
     m_PersistentCalls:
       m_Calls:
@@ -48553,7 +48554,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965463667}
   m_LocalRotation: {x: 0, y: 0.19936788, z: 0, w: 0.97992474}
-  m_LocalPosition: {x: 0.2, y: -0.05, z: 0}
+  m_LocalPosition: {x: 0.11, y: -0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

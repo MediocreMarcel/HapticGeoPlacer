@@ -5,6 +5,7 @@
 using Microsoft.MixedReality.QR;
 using Microsoft.MixedReality.SampleQRCodes;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -45,7 +46,7 @@ public class QRCodeButtonMapper : MonoBehaviour
         }
     }
 
-    private Queue<ActionData> pendingActions = new Queue<ActionData>();
+    private Queue<ActionData> pendingActions;
 
     // Use this for initialization
     void Start()
@@ -56,6 +57,7 @@ public class QRCodeButtonMapper : MonoBehaviour
         QRCodesManager.Instance.QRCodeAdded += Instance_QRCodeAdded;
         QRCodesManager.Instance.QRCodeUpdated += Instance_QRCodeUpdated;
         QRCodesManager.Instance.QRCodeRemoved += Instance_QRCodeRemoved;
+        pendingActions = new Queue<ActionData>();
         if (MenuWrapper == null)
         {
             throw new System.Exception("Menu wrapper not assigned");
@@ -114,46 +116,56 @@ public class QRCodeButtonMapper : MonoBehaviour
                 // ==== Beginn Eigenanteil ==== /
                 if (action.type == ActionData.Type.Added)
                 {
-                    if(action.qrCode.Data == "Button9")
+                    if (action.qrCode.Data == "Button9")
                     {
-                        this.AddMenuTrackingToQrCode(action.qrCode);
-                        
-                    } else if (action.qrCode.Data == "Button6" && SceneManager.GetActiveScene().name=="Study-HapticButtonSurvey")
+                        this.AddMenuTrackingToQrCode(action.qrCode, false);
+
+                    }
+                    else if (action.qrCode.Data == "MenuHover")
+                    {
+                        this.AddMenuTrackingToQrCode(action.qrCode, true);
+                    }
+                    else if (action.qrCode.Data == "StartCube" && SceneManager.GetActiveScene().name == "Study-HapticButtonSurvey")
                     {
                         this.AddStartCubeTracking(action.qrCode);
                     }
-
-                    this.isTrackingEnabled = true;
                     Debug.Log("Enabled tracking on " + action.qrCode.SpatialGraphNodeId);
                 }
                 else if (action.type == ActionData.Type.Updated)
                 {
-                    if (!isTrackingEnabled)
+                    if ((action.qrCode.Data == "Button9" || action.qrCode.Data == "MenuHover") && this.MenuWrapper.GetComponent<SpatialGraphNodeTracker>().Id != action.qrCode.SpatialGraphNodeId)
                     {
-                        if(action.qrCode.Data == "Button9")
+                        if (action.qrCode.Data == "Button9")
                         {
-                            this.AddMenuTrackingToQrCode(action.qrCode);
-                        } else if (action.qrCode.Data == "Button6" && SceneManager.GetActiveScene().name == "Study-HapticButtonSurvey")
-                        {
-                            this.AddStartCubeTracking(action.qrCode);
+                            this.AddMenuTrackingToQrCode(action.qrCode, false);
                         }
-                        
-                        this.isTrackingEnabled = true;
-                        Debug.Log("Enabled tracking on " + action.qrCode.SpatialGraphNodeId);
-
+                        else if (action.qrCode.Data == "MenuHover")
+                        {
+                            this.AddMenuTrackingToQrCode(action.qrCode, true);
+                        }
                     }
+                    else if (action.qrCode.Data == "StartCube" && SceneManager.GetActiveScene().name == "Study-HapticButtonSurvey" && this.StartCube.GetComponent<SpatialGraphNodeTracker>().Id != action.qrCode.SpatialGraphNodeId)
+                    {
+                        this.AddStartCubeTracking(action.qrCode);
+                    }
+
+                    Debug.Log("Enabled tracking on " + action.qrCode.SpatialGraphNodeId);
                 }
             }
         }
     }
 
-    private void AddMenuTrackingToQrCode(QRCode qrCode)
+
+    private void AddMenuTrackingToQrCode(QRCode qrCode, bool hoverUi)
     {
         this.MenuWrapper.GetComponent<SpatialGraphNodeTracker>().Id = qrCode.SpatialGraphNodeId;
         this.MenuWrapper.GetComponent<SpatialGraphNodeTracker>().enabled = true;
-        foreach(MenuQrCodePlacer MenuPlacer in this.MenuWrapper.GetComponentsInChildren<MenuQrCodePlacer>(true))
+        MenuQrCodePlacer[] MenuPlacers = this.MenuWrapper.GetComponentsInChildren<MenuQrCodePlacer>(true);
+
+        foreach (MenuQrCodePlacer MenuPlacer in MenuPlacers)
         {
             MenuPlacer.qrCode = qrCode;
+            MenuPlacer.hover = hoverUi;
         }
     }
 

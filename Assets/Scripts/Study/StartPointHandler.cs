@@ -1,3 +1,4 @@
+using Microsoft.MixedReality.SampleQRCodes;
 using Microsoft.MixedReality.Toolkit.Input;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,9 +8,12 @@ public class StartPointHandler : MonoBehaviour, IMixedRealityTouchHandler
 {
     public int OnTouchLockFrames = 60;
     private int OnTouchLockFramesCounter = 0;
+    private SpatialGraphNodeTracker spatialGraphNodeTracker;
     [SerializeField] private ButtonStudyHandler ButtonStudyHandler;
     public void OnTouchCompleted(HandTrackingInputEventData eventData)
     {
+        Debug.Log("Start Cube Released");
+        this.spatialGraphNodeTracker.pauseTracking = false;
         ButtonStudyHandler.OnStartCubeReleased();
     }
 
@@ -17,11 +21,13 @@ public class StartPointHandler : MonoBehaviour, IMixedRealityTouchHandler
     {
         if (this.OnTouchLockFramesCounter <= 0)
         {
+            Debug.Log("Start Cube Started");
             this.OnTouchLockFramesCounter = this.OnTouchLockFrames;
+            this.spatialGraphNodeTracker.pauseTracking = true;
             ButtonStudyHandler.onStartCubeTouched();          
         } else
         {
-
+            Debug.Log("Start Cube Locked");
         }
         
     }
@@ -34,7 +40,7 @@ public class StartPointHandler : MonoBehaviour, IMixedRealityTouchHandler
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.spatialGraphNodeTracker = this.GetComponentInParent<SpatialGraphNodeTracker>();
     }
 
     // Update is called once per frame

@@ -21,22 +21,26 @@ public class ButtonStudyHandler : MonoBehaviour
     [SerializeField] private GameObject DonePlate;
 
     private TextMeshPro TextOverlayMash;
+    private GameObject StartCubeToolTip;
     private StudySteps currentStep = StudySteps.HAND_TO_START;
 
     private DateTime? interactionStart;
     private DateTime? interactionEnd;
     private List<string> missclicks = new List<string>();
     private string currentFilename = "";
+    private string currentFilepath = "";
 
     public void onStartCubeTouched()
     {
         switch (currentStep)
         {
             case StudySteps.HAND_TO_START:
-                this.currentFilename = DateTime.Now.ToString().Replace(" ", "-").Replace(":", "-").Replace(".", "-") + "-button-study.csv";
+                this.currentFilename = DateTime.Now.ToString().Replace("/","-").Replace(" ", "-").Replace(":", "-").Replace(".", "-") + "-button-study.csv";
                 Debug.Log(this.currentFilename);
-                File.Create(currentFilename).Close();
-                using (StreamWriter w = File.AppendText(this.currentFilename))
+                Directory.CreateDirectory(Application.persistentDataPath);
+                this.currentFilepath = Path.Combine(Application.persistentDataPath, currentFilename);
+                File.Create(currentFilepath).Close();
+                using (StreamWriter w = File.AppendText(this.currentFilepath))
                 {
                     w.WriteLine($"task;start-time;end-time;interaction-time;missclicks");
                 }
@@ -109,6 +113,7 @@ public class ButtonStudyHandler : MonoBehaviour
     {
         this.TextOverlay.SetActive(false);
         this.StartCube.SetActive(false);
+        this.StartCubeToolTip.SetActive(true);
         this.interactionStart = DateTime.Now;
     }
 
@@ -288,6 +293,7 @@ public class ButtonStudyHandler : MonoBehaviour
     {
         this.TextOverlayMash.text = text;
         this.TextOverlay.SetActive(true);
+        this.StartCubeToolTip.SetActive(false);
     }
 
     void ShowStartCube()
@@ -301,12 +307,13 @@ public class ButtonStudyHandler : MonoBehaviour
         this.interactionEnd = null;
         this.missclicks.Clear();
         this.currentFilename = "";
+        this.currentFilepath = "";
     }
 
     void TaskCompleated(string task, bool showCube = true)
     {
         this.interactionEnd = DateTime.Now;
-        using (StreamWriter w = File.AppendText(this.currentFilename))
+        using (StreamWriter w = File.AppendText(this.currentFilepath))
         {
             w.WriteLine($"{task};{this.interactionStart.Value.ToString("yyyy-MM-dd HH:mm:ss.fff")};{this.interactionEnd.Value.ToString("yyyy-MM-dd HH:mm:ss.fff")};{new TimeSpan(interactionEnd.Value.Ticks - interactionStart.Value.Ticks).TotalMilliseconds};{string.Join(",", this.missclicks.ToArray())}");
         }
@@ -323,6 +330,7 @@ public class ButtonStudyHandler : MonoBehaviour
     void Start()
     {
         this.TextOverlayMash = TextOverlay.transform.GetChild(0).GetComponent<TextMeshPro>();
+        this.StartCubeToolTip = this.StartCube.transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame

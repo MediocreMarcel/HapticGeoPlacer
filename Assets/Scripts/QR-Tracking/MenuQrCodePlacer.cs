@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuQrCodePlacer : MonoBehaviour
-{    
+{
     public QRCode qrCode { get; set; }
     // ==== Beginn Eigenanteil ==== /
     public float QRMargin = 0.012f;
+    public bool hover;
 
     [SerializeField] private GameObject BackplateQuad;
     private Renderer BackplateQuadRenderer;
@@ -15,6 +16,7 @@ public class MenuQrCodePlacer : MonoBehaviour
     private Coroutine LerpCoroutine;
     private LerpUtil LerpUtil = new LerpUtil();
     private Vector3 PreviousFrameMenuPosition = new Vector3(0, 0, 0);
+
 
     private void Start()
     {
@@ -33,7 +35,17 @@ public class MenuQrCodePlacer : MonoBehaviour
             }
             float originalQRCodeSize = qrCode.PhysicalSideLength;
             Vector3 backplateSize = this.BackplateQuadRenderer.bounds.size;
-            Vector3 desiredMenuPosition = new Vector3(originalQRCodeSize - (backplateSize.x / 2.0f) - 0.005f + QRMargin, -(backplateSize.y / 2.0f) + QRMargin, 0.0f);
+            Vector3 desiredMenuPosition;
+            if (hover)
+            {
+                desiredMenuPosition = new Vector3(originalQRCodeSize + (backplateSize.x / 2.0f) + 0.005f + QRMargin, -(backplateSize.y / 2.0f) + QRMargin, 0.0f);
+
+            }
+            else
+            {
+                desiredMenuPosition = new Vector3(originalQRCodeSize - (backplateSize.x / 2.0f) - 0.005f + QRMargin, -(backplateSize.y / 2.0f) + QRMargin, 0.0f);
+            }
+
             this.lastUpdate = qrCode.SystemRelativeLastDetectedTime.Ticks;
             if (Vector3.Distance(this.PreviousFrameMenuPosition, desiredMenuPosition) > 0.005f)
             {

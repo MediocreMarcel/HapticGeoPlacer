@@ -14,6 +14,7 @@ namespace Microsoft.MixedReality.SampleQRCodes
     {
         private SpatialGraphNode node;
         public bool is90DegreeTurned = false;
+        public bool pauseTracking = false;
 
         public System.Guid Id { get; set; }
         // ==== Beginn Eigenanteil ==== /
@@ -36,7 +37,7 @@ namespace Microsoft.MixedReality.SampleQRCodes
                 //Debug.Log("Initialize SpatialGraphNode Id= " + Id);
             }
 
-            if (node != null)
+            if (node != null && !pauseTracking)
             {
                 if (node.TryLocate(FrameTime.OnUpdate, out Pose pose))
                 {
