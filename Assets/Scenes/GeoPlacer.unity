@@ -359,6 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QRMargin: 0.012
+  hover: 0
   BackplateQuad: {fileID: 1104724904}
 --- !u!1 &10776760
 GameObject:
@@ -2405,6 +2406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QRMargin: 0.012
+  hover: 0
   BackplateQuad: {fileID: 1894920870}
 --- !u!1 &138166528
 GameObject:
@@ -6092,6 +6094,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QRMargin: 0.012
+  hover: 0
   BackplateQuad: {fileID: 1218271070}
 --- !u!1 &330978333
 GameObject:
@@ -19991,6 +19994,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MenuWrapper: {fileID: 1829883302}
+  StartCube: {fileID: 0}
 --- !u!114 &1285465400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26501,6 +26505,7 @@ MonoBehaviour:
   startSphere: {fileID: 1004903492}
   endSphere: {fileID: 224798431}
   SpherePrefab: {fileID: 3595543996858748131, guid: fe91d7190ccd71e439b3cbc75b7f9072, type: 3}
+  buttonStudyHandler: {fileID: 0}
 --- !u!114 &1741101832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26534,6 +26539,7 @@ MonoBehaviour:
   startSphere: {fileID: 1004903492}
   endSphere: {fileID: 224798431}
   QuboidPrefab: {fileID: 7747588753113584933, guid: 5faf796563d6ff8429e4435fa1f1ca0e, type: 3}
+  buttonStudyHandler: {fileID: 0}
 --- !u!4 &1741101833
 Transform:
   m_ObjectHideFlags: 0
@@ -27231,6 +27237,7 @@ GameObject:
   - component: {fileID: 1829883304}
   - component: {fileID: 1829883303}
   - component: {fileID: 1829883305}
+  - component: {fileID: 1829883306}
   m_Layer: 0
   m_Name: MenuWrapper
   m_TagString: Untagged
@@ -27285,6 +27292,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542cbccd6fa9ef74dbb043ea42adc4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  is90DegreeTurned: 0
+  pauseTracking: 0
+  OnQRCodeNotVisible:
+    m_PersistentCalls:
+      m_Calls: []
+  OnQRCodeVisible:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1829883306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829883302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffe4405560b99ef498c5414cba983d3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   OnQRCodeNotVisible:
     m_PersistentCalls:
       m_Calls:
@@ -27315,6 +27342,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  InvisibilityTriggerTime: 2
 --- !u!1 &1839225967
 GameObject:
   m_ObjectHideFlags: 0
@@ -28905,6 +28933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QRMargin: 0.012
+  hover: 0
   BackplateQuad: {fileID: 1652682852}
 --- !u!1 &1920916525
 GameObject:

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2123782480158905590}
   - component: {fileID: 6977100952105072579}
   - component: {fileID: 6787657289715190464}
-  - component: {fileID: 4813847361991871163}
+  - component: {fileID: 5560094793354468052}
   - component: {fileID: 2398327715141724210}
   - component: {fileID: 8355703337256905474}
   - component: {fileID: -146669184456456884}
@@ -162,8 +162,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTetherWhenManipulating: 0
   IsBoundsHandles: 0
---- !u!65 &4813847361991871163
-BoxCollider:
+--- !u!64 &5560094793354468052
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -172,9 +172,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5676588575540745739, guid: 877e565a7d623fd43b22f46a9fa85ac1, type: 3}
 --- !u!114 &2398327715141724210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,7 +257,7 @@ MonoBehaviour:
   localUp: {x: 0, y: 1, z: 0}
   localCenter: {x: 0, y: 0, z: -0.5}
   bounds: {x: 1, y: 1}
-  touchableCollider: {fileID: 4813847361991871163}
+  touchableCollider: {fileID: 5560094793354468052}
 --- !u!114 &4559437037848249882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,3 +271,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ColorMenuHandler: {fileID: 0}
+  ButtonStudyHandler: {fileID: 0}

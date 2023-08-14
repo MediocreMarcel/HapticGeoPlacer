@@ -144,13 +144,13 @@ public class QRCodeButtonMapper : MonoBehaviour
                             this.AddMenuTrackingToQrCode(action.qrCode, true);
                         }
                     }
-                    else if (action.qrCode.Data == "StartCube" && SceneManager.GetActiveScene().name == "Study-HapticButtonSurvey" && this.StartCube.GetComponent<SpatialGraphNodeTracker>().Id != action.qrCode.SpatialGraphNodeId)
+                    else if (action.qrCode.Data == "StartCube" && (SceneManager.GetActiveScene().name == "Study-HapticButtonSurvey" || SceneManager.GetActiveScene().name == "BuildStudy")  && this.StartCube.GetComponent<SpatialGraphNodeTracker>().Id != action.qrCode.SpatialGraphNodeId)
                     {
                         this.AddStartCubeTracking(action.qrCode);
                     }
 
                     Debug.Log("Enabled tracking on " + action.qrCode.SpatialGraphNodeId);
-                }
+                } 
             }
         }
     }
@@ -160,6 +160,7 @@ public class QRCodeButtonMapper : MonoBehaviour
     {
         this.MenuWrapper.GetComponent<SpatialGraphNodeTracker>().Id = qrCode.SpatialGraphNodeId;
         this.MenuWrapper.GetComponent<SpatialGraphNodeTracker>().enabled = true;
+        this.MenuWrapper.GetComponent<QRCodeVisabilityHandler>().qrCode = qrCode;
         MenuQrCodePlacer[] MenuPlacers = this.MenuWrapper.GetComponentsInChildren<MenuQrCodePlacer>(true);
 
         foreach (MenuQrCodePlacer MenuPlacer in MenuPlacers)

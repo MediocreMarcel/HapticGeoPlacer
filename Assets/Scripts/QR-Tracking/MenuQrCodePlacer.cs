@@ -49,7 +49,6 @@ public class MenuQrCodePlacer : MonoBehaviour
            /* if (Vector3.Distance(this.PreviousFrameMenuPosition, desiredMenuPosition) > 0.001f)
             {*/
                 this.LerpCoroutine = StartCoroutine(this.LerpUtil.LerpLocalPosition(gameObject, desiredMenuPosition, 0.3f));
-                Debug.Log("Move X: " + desiredMenuPosition.x);
            /* }
             this.PreviousFrameMenuPosition = desiredMenuPosition;*/
             // ==== Ende Eigenanteil ==== /
