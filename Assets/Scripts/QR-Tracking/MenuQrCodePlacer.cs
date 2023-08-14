@@ -39,7 +39,6 @@ public class MenuQrCodePlacer : MonoBehaviour
             if (hover)
             {
                 desiredMenuPosition = new Vector3(originalQRCodeSize + (backplateSize.x / 2.0f) + 0.005f + QRMargin, -(backplateSize.y / 2.0f) + QRMargin, 0.0f);
-
             }
             else
             {
@@ -47,11 +46,12 @@ public class MenuQrCodePlacer : MonoBehaviour
             }
 
             this.lastUpdate = qrCode.SystemRelativeLastDetectedTime.Ticks;
-            if (Vector3.Distance(this.PreviousFrameMenuPosition, desiredMenuPosition) > 0.005f)
-            {
+           /* if (Vector3.Distance(this.PreviousFrameMenuPosition, desiredMenuPosition) > 0.001f)
+            {*/
                 this.LerpCoroutine = StartCoroutine(this.LerpUtil.LerpLocalPosition(gameObject, desiredMenuPosition, 0.3f));
-            }
-            this.PreviousFrameMenuPosition = desiredMenuPosition;
+                Debug.Log("Move X: " + desiredMenuPosition.x);
+           /* }
+            this.PreviousFrameMenuPosition = desiredMenuPosition;*/
             // ==== Ende Eigenanteil ==== /
         }
     }

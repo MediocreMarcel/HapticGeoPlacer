@@ -164,6 +164,9 @@ public class QRCodeButtonMapper : MonoBehaviour
 
         foreach (MenuQrCodePlacer MenuPlacer in MenuPlacers)
         {
+            MenuPlacer.StopAllCoroutines();
+            MenuPlacer.enabled = false;
+            MenuPlacer.enabled = true;
             MenuPlacer.qrCode = qrCode;
             MenuPlacer.hover = hoverUi;
         }
